@@ -7,7 +7,16 @@ import "../src/Counter.sol";
 contract CounterTest is Test {
     Counter public counter;
 
+    address alice;
+    address bob;
+
     function setUp() public {
+        // vm.createSelectFork({ urlOrAlias: "localhost" });
+
+        string memory mnemonic = vm.envString("MNEMONIC_LOCALHOST");
+        (alice,) = deriveRememberKey(mnemonic, 0);
+        (bob,) = deriveRememberKey(mnemonic, 1);
+
         counter = new Counter();
         counter.setNumber(0);
     }
